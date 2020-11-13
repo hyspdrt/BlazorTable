@@ -1,8 +1,7 @@
 ﻿@page "/DynamicColumns"
+<Title Value="Dynamic Columns"/>
 
-<h1>Dynamic Columns</h1>
-
-<Table TableItem="PersonData" Items="data" PageSize="15" ShowSearchBar="true">
+<Table TableItem="PersonData" Items="data" PageSize="10" ShowSearchBar="true" TableTitle="Dynamic Columns" >
     <DynamicColumns TableItem="PersonData" Sortable="true" Filterable="true" />
     <Pager ShowPageNumber="true" ShowTotalCount="true" ShowPageSizes="true" />
 </Table>

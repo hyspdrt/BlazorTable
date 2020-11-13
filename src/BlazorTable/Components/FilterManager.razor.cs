@@ -1,44 +1,49 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Logging;
+﻿
+namespace BlazorTable {
 
-namespace BlazorTable
-{
-    public partial class FilterManager<TableItem>
-    {
-        [CascadingParameter(Name = "Column")]
-        public IColumn<TableItem> Column { get; set; }
+	using Microsoft.AspNetCore.Components;
+	using Microsoft.Extensions.Logging;
 
-        [Parameter]
-        public RenderFragment ChildContent { get; set; }
+	public partial class FilterManager<TableItem> : ComponentBase {
 
-        [Inject]
-        public ILogger<FilterManager<TableItem>> Logger { get; set; }
+		[CascadingParameter(Name = "Column")]
+		public IColumn<TableItem> Column { get; set; }
 
-        private void ApplyFilter()
-        {
-            Column.ToggleFilter();
+		[Parameter]
+		public RenderFragment ChildContent { get; set; }
 
-            if (Column.FilterControl != null)
-            {
-                Column.Filter = Column.FilterControl.GetFilter();
-                Column.Table.Update();
-                Column.Table.FirstPage();
-            }
-            else
-            {
-                Logger.LogInformation("Filter is null");
-            }
-        }
+		[Inject]
+		public ILogger<FilterManager<TableItem>> Logger { get; set; }
 
-        private void ClearFilter()
-        {
-            Column.ToggleFilter();
+		private void ApplyFilter() {
 
-            if (Column.Filter != null)
-            {
-                Column.Filter = null;
-                Column.Table.Update();
-            }
-        }
-    }
+			Column.ToggleFilter();
+
+			if (Column.FilterControl != null) {
+				Column.Filter = Column.FilterControl.GetFilter();
+				Column.Table.Update();
+				Column.Table.FirstPage();
+			} else {
+				Logger.LogInformation("Filter is null");
+			}
+
+		}
+
+		private void ClearFilter() {
+
+			Column.ToggleFilter();
+
+			if (Column.Filter != null) {
+				Column.Filter = null;
+				Column.Table.Update();
+			}
+
+		}
+
+		private void Close() {
+			Column.ToggleFilter();
+		}
+
+	}
+
 }

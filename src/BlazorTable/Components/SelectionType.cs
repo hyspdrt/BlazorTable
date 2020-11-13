@@ -1,9 +1,7 @@
-﻿namespace BlazorTable
-{
-    public enum SelectionType
-    {
-        None,
-        Single,
-        Multiple
-    }
+﻿namespace BlazorTable {
+	public enum SelectionType {
+		None,
+		Single,
+		Multiple
+	}
 }

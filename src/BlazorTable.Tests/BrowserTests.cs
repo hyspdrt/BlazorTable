@@ -1,72 +1,71 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using PuppeteerSharp;
-using PuppeteerSharp.Contrib.Extensions;
-using Shouldly;
-using Xunit;
+﻿
+namespace BlazorTable.Tests {
 
-namespace BlazorTable.Tests
-{
-    public class BrowserTests : IAsyncLifetime
-    {
-        private string BaseAddress;
+	using System;
+	using System.IO;
+	using System.Linq;
+	using System.Threading.Tasks;
+	using PuppeteerSharp;
+	using PuppeteerSharp.Contrib.Extensions;
+	using Shouldly;
+	using Xunit;
 
-        private Browser Browser { get; set; }
+	public class BrowserTests : IAsyncLifetime {
 
-        public async Task InitializeAsync()
-        {
-            string filename = "BrowserTestsAddress.config";
+		private string BaseAddress;
 
-            if (File.Exists(filename))
-                BaseAddress = File.ReadAllText(filename);
-            else
-                throw new Exception($"Missing {filename}");
+		private Browser Browser { get; set; }
 
-            await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
+		public async Task InitializeAsync() {
 
-            Browser = await Puppeteer.LaunchAsync(new LaunchOptions
-            {
-                Headless = true
-            });
-        }
+			string filename = "BrowserTestsAddress.config";
 
-        public async Task DisposeAsync()
-        {
-            await Browser?.CloseAsync();
-        }
+			if (File.Exists(filename))
+				BaseAddress = File.ReadAllText(filename);
+			else
+				throw new Exception($"Missing {filename}");
 
-        private async Task PrintPerf(Page page)
-        {
-            var perf = await page.EvaluateExpressionAsync<long>("window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart");
-            Console.WriteLine($"Load Time: {perf}ms");
-        }
+			await new BrowserFetcher().DownloadAsync(BrowserFetcher.DefaultRevision);
 
-        [Fact]
-        public async Task CheckRoot()
-        {
-            bool hasError = false;
+			Browser = await Puppeteer.LaunchAsync(new LaunchOptions {
+				Headless = true
+			});
+		}
 
-            var page = await Browser.NewPageAsync();
+		public async Task DisposeAsync() {
+			await Browser?.CloseAsync();
+		}
 
-            page.Console += Page_Console;
+		private async Task PrintPerf(Page page) {
+			var perf = await page.EvaluateExpressionAsync<long>("window.performance.timing.domContentLoadedEventEnd - window.performance.timing.navigationStart");
+			Console.WriteLine($"Load Time: {perf}ms");
+		}
 
-            void Page_Console(object sender, ConsoleEventArgs e)
-            {
-                if (e.Message.Type == ConsoleType.Error)
-                    hasError = true;
-            }
+		[Fact]
+		public async Task CheckRoot() {
 
-            await page.GoToAsync(BaseAddress);
+			bool hasError = false;
 
-            var selector = await page.WaitForSelectorAsync("div.table-responsive > table > tbody > tr:nth-child(1) > td:nth-child(3)");
+			var page = await Browser.NewPageAsync();
 
-            (await selector.InnerTextAsync()).ShouldBe("Astrix Mariette");
+			page.Console += Page_Console;
 
-            hasError.ShouldBeFalse();
+			void Page_Console(object sender, ConsoleEventArgs e) {
+				if (e.Message.Type == ConsoleType.Error)
+					hasError = true;
+			}
 
-            await PrintPerf(page);
-        }
-    }
+			await page.GoToAsync(BaseAddress);
+
+			var selector = await page.WaitForSelectorAsync("div.table-responsive > table > tbody > tr:nth-child(1) > td:nth-child(3)");
+
+			(await selector.InnerTextAsync()).ShouldBe("Astrix Mariette");
+
+			hasError.ShouldBeFalse();
+
+			await PrintPerf(page);
+		}
+
+	}
+
 }

@@ -1,12 +1,7 @@
 ﻿@page "/CustomSelect"
+<Title Value="Custom Select Filter" />
 
-@using BlazorTable
-
-<h1>CustomSelect</h1>
-
-<p>The <code>CustomSelect</code> can be used to display custom filter options.</p>
-<br />
-<Table TableItem="PersonData" Items="data" PageSize="15" ColumnReorder="true">
+<Table TableItem="PersonData" Items="data" PageSize="10" ColumnReorder="true" TableTitle="Custom Select Filter">
     <Column TableItem="PersonData" Title="Full Name" Field="@(x => x.full_name)" Sortable="true" Filterable="true" Width="20%">
         <CustomIFilters>
             <CustomSelect TableItem="PersonData">

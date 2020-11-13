@@ -1,10 +1,8 @@
-﻿namespace BlazorTable
-{
-    public enum Align
-    {
-        None,
-        Left,
-        Center,
-        Right
-    }
+﻿namespace BlazorTable {
+	public enum Align {
+		None,
+		Left,
+		Center,
+		Right
+	}
 }

@@ -1,12 +1,8 @@
 ﻿@page "/TableFooter"
-
-@using BlazorTable
-
-<h1>Table Footer</h1>
+<Title Value="Table Footer"/>
 
 <p>This example is to demonstrate the table footer feature. There are 5 aggregation types built in: <code>Sum</code>,  <code>Average</code>,  <code>Count</code>,  <code>Min</code>,  and <code>Max</code>. You have ability to set any string value into the footer by using <code>SetFooterValue</code> attribute for the <code>Column</code> tag if necessary.</p>
-
-<Table TableItem="PersonData" Items="data" PageSize="15" ColumnReorder="true" ShowSearchBar="true" ShowFooter="true">
+<Table TableItem="PersonData" Items="data" PageSize="10" ColumnReorder="true" ShowSearchBar="true" ShowFooter="true" TableTitle="Table Footer">
     <Column TableItem="PersonData" Title="Id" Field="@(x => x.id)" Aggregate="AggregateType.Count" Sortable="true" Filterable="true" Width="10%" DefaultSortColumn="true" />
     <Column TableItem="PersonData" Title="Full Name" Field="@(x => x.full_name)" Sortable="true" Filterable="true" Width="20%" />
     <Column TableItem="PersonData" Title="Email" Field="@(x => x.email)" Sortable="true" Filterable="true" Width="10%">

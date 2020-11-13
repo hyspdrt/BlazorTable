@@ -1,12 +1,9 @@
 ﻿@page "/EmptyData"
 @inject HttpClient Http
-@using BlazorTable
-
-<h1>EmptyDataTemplate</h1>
+<Title Value="Empty DataTemplate"/>
 
 <p>The <code>EmptyDataTemplate</code> can be used to display custom text when there are no rows to display.</p>
-<br />
-<Table TableItem="SampleData" Items="data" PageSize="15" @ref="Table" ColumnReorder="true">
+<Table TableItem="SampleData" Items="data" PageSize="10" @ref="Table" ColumnReorder="true" TableTitle="Empty DataTemplate">
     <Column TableItem="SampleData" Title="Id" Field="@(x => x.id)" Sortable="true" Filterable="true" Width="10%" DefaultSortColumn="true" />
     <Column TableItem="SampleData" Title="Full Name" Field="@(x => x.full_name)" Sortable="true" Filterable="true" Width="20%" />
     <EmptyDataTemplate>

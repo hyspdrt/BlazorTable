@@ -1,107 +1,100 @@
-﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq.Expressions;
+﻿
+namespace BlazorTable {
 
-namespace BlazorTable
-{
-    public partial class BooleanFilter<TableItem> : IFilter<TableItem>
-    {
-        [CascadingParameter(Name = "Column")]
-        public IColumn<TableItem> Column { get; set; }
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel;
+	using System.Linq.Expressions;
 
-        private BooleanCondition Condition { get; set; }
+	public partial class BooleanFilter<TableItem> {
 
-        public List<Type> FilterTypes => new List<Type>()
-        {
-            typeof(bool)
-        };
+		public List<Type> FilterTypes => new List<Type>()
+		{
+			typeof(bool)
+		};
 
-        protected override void OnInitialized()
-        {
-            if (FilterTypes.Contains(Column.Type.GetNonNullableType()))
-            {
-                Column.FilterControl = this;
+		protected override void OnInitialized() {
 
-                if (Column.Filter != null)
-                {
-                    var nodeType = Column.Filter.Body.NodeType;
+			if (this.FilterTypes.Contains(this.Column.Type.GetNonNullableType())) {
 
-                    if (Column.Filter.Body is BinaryExpression binaryExpression
-                        && binaryExpression.NodeType == ExpressionType.AndAlso)
-                    {
-                        nodeType = binaryExpression.Right.NodeType;
-                    }
+				this.Column.FilterControl = this;
 
-                    switch (nodeType)
-                    {
-                        case ExpressionType.IsTrue:
-                            Condition = BooleanCondition.True;
-                            break;
-                        case ExpressionType.IsFalse:
-                            Condition = BooleanCondition.False;
-                            break;
-                        case ExpressionType.Equal:
-                            Condition = BooleanCondition.IsNull;
-                            break;
-                        case ExpressionType.NotEqual:
-                            Condition = BooleanCondition.IsNotNull;
-                            break;
-                    }
-                }
-            }
-        }
+				if (this.Column.Filter != null) {
+					var nodeType = this.Column.Filter.Body.NodeType;
 
-        public Expression<Func<TableItem, bool>> GetFilter()
-        {
-            return Condition switch
-            {
-                BooleanCondition.True =>
-                    Expression.Lambda<Func<TableItem, bool>>(
-                        Expression.AndAlso(
-                            Column.Field.Body.CreateNullChecks(),
-                            Expression.IsTrue(Expression.Convert(Column.Field.Body, Column.Type.GetNonNullableType()))),
-                        Column.Field.Parameters),
+					if (this.Column.Filter.Body is BinaryExpression binaryExpression
+						&& binaryExpression.NodeType == ExpressionType.AndAlso) {
+						nodeType = binaryExpression.Right.NodeType;
+					}
 
-                BooleanCondition.False =>
-                    Expression.Lambda<Func<TableItem, bool>>(
-                        Expression.AndAlso(
-                            Column.Field.Body.CreateNullChecks(),
-                            Expression.IsFalse(Expression.Convert(Column.Field.Body, Column.Type.GetNonNullableType()))),
-                            Column.Field.Parameters),
+					switch (nodeType) {
+						case ExpressionType.IsTrue:
+							this.Condition = BooleanCondition.True;
+							break;
+						case ExpressionType.IsFalse:
+							this.Condition = BooleanCondition.False;
+							break;
+						case ExpressionType.Equal:
+							this.Condition = BooleanCondition.IsNull;
+							break;
+						case ExpressionType.NotEqual:
+							this.Condition = BooleanCondition.IsNotNull;
+							break;
+					}
+				}
+			}
+		}
 
-                BooleanCondition.IsNull =>
-                    Expression.Lambda<Func<TableItem, bool>>(
-                        Expression.AndAlso(
-                            Column.Field.Body.CreateNullChecks(true),
-                            Expression.Equal(Column.Field.Body, Expression.Constant(null))),
-                        Column.Field.Parameters),
+		public override Expression<Func<TableItem, bool>> GetFilter() {
+			return this.Condition switch {
+				BooleanCondition.True =>
+					Expression.Lambda<Func<TableItem, bool>>(
+						Expression.AndAlso(
+							this.Column.Field.Body.CreateNullChecks(),
+							Expression.IsTrue(Expression.Convert(this.Column.Field.Body, this.Column.Type.GetNonNullableType()))),
+						this.Column.Field.Parameters),
 
-                BooleanCondition.IsNotNull =>
-                    Expression.Lambda<Func<TableItem, bool>>(
-                        Expression.AndAlso(
-                            Column.Field.Body.CreateNullChecks(true),
-                            Expression.NotEqual(Column.Field.Body, Expression.Constant(null))),
-                        Column.Field.Parameters),
+				BooleanCondition.False =>
+					Expression.Lambda<Func<TableItem, bool>>(
+						Expression.AndAlso(
+							this.Column.Field.Body.CreateNullChecks(),
+							Expression.IsFalse(Expression.Convert(this.Column.Field.Body, this.Column.Type.GetNonNullableType()))),
+							this.Column.Field.Parameters),
 
-                _ => null,
-            };
-        }
-    }
+				BooleanCondition.IsNull =>
+					Expression.Lambda<Func<TableItem, bool>>(
+						Expression.AndAlso(
+							this.Column.Field.Body.CreateNullChecks(true),
+							Expression.Equal(this.Column.Field.Body, Expression.Constant(null))),
+						this.Column.Field.Parameters),
 
-    public enum BooleanCondition
-    {
-        [Description("True")]
-        True,
+				BooleanCondition.IsNotNull =>
+					Expression.Lambda<Func<TableItem, bool>>(
+						Expression.AndAlso(
+							this.Column.Field.Body.CreateNullChecks(true),
+							Expression.NotEqual(this.Column.Field.Body, Expression.Constant(null))),
+						this.Column.Field.Parameters),
 
-        [Description("False")]
-        False,
+				_ => null,
+			};
 
-        [Description("Is null")]
-        IsNull,
+		}
 
-        [Description("Is not null")]
-        IsNotNull
-    }
+	}
+
+	public enum BooleanCondition {
+
+		[Description("True")]
+		True,
+
+		[Description("False")]
+		False,
+
+		[Description("Is null")]
+		IsNull,
+
+		[Description("Is not null")]
+		IsNotNull
+	}
+
 }

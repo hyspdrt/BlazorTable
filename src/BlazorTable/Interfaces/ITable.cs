@@ -1,129 +1,151 @@
-﻿namespace BlazorTable
-{
-    /// <summary>
-    /// BlazorTable Interface
-    /// </summary>
-    public interface ITable
-    {
-        /// <summary>
-        /// Page Size
-        /// </summary>
-        int PageSize { get; }
+﻿
+namespace BlazorTable {
 
-        /// <summary>
-        /// Allow Columns to be reordered
-        /// </summary>
-        bool ColumnReorder { get; set; }
+	/// <summary>
+	/// BlazorTable Interface
+	/// </summary>
+	public interface ITable {
 
-        /// <summary>
-        /// Current Page Number
-        /// </summary>
-        int PageNumber { get; }
+		/// <summary>
+		/// Page Size
+		/// </summary>
+		int PageSize { get; }
 
-        /// <summary>
-        /// Total Count of Items
-        /// </summary>
-        int TotalCount { get; }
+		/// <summary>
+		/// Allow Columns to be reordered
+		/// </summary>
+		bool ColumnReorder { get; set; }
 
-        /// <summary>
-        /// Total Pages
-        /// </summary>
-        public int TotalPages { get; }
+		/// <summary>
+		/// Current Page Number
+		/// </summary>
+		int PageNumber { get; }
 
-        /// <summary>
-        /// Is Table in Edit mode
-        /// </summary>
-        bool IsEditMode { get; }
+		/// <summary>
+		/// The first record index for the current page.
+		/// </summary>
+		int PageFirstItemNumber { get; }
 
+		/// <summary>
+		/// The last record index for the current page.
+		/// </summary>
+		int PageLastItemNumber { get; }
 
-        /// <summary>
-        /// Go to First Page
-        /// </summary>
-        void FirstPage();
+		/// <summary>
+		/// Total Count of Items
+		/// </summary>
+		int TotalCount { get; }
 
-        /// <summary>
-        /// Go to Next Page
-        /// </summary>
-        void NextPage();
+		/// <summary>
+		/// Total Pages
+		/// </summary>
+		public int TotalPages { get; }
 
-        /// <summary>
-        /// Go to Previous Page
-        /// </summary>
-        void PreviousPage();
-
-        /// <summary>
-        /// Go to Last Page
-        /// </summary>
-        void LastPage();
-
-        /// <summary>
-        /// Redraws the Table using EditTemplate instead of Template
-        /// </summary>
-        void ToggleEditMode();
-
-        /// <summary>
-        /// Table Element CSS
-        /// </summary>
-        string TableClass { get; set; }
-
-        /// <summary>
-        /// Table Body CSS
-        /// </summary>
-        string TableBodyClass { get; set; }
-
-        /// <summary>
-        /// Table Head CSS
-        /// </summary>
-        string TableHeadClass { get; set; }
-
-        /// <summary>
-        /// Redraws Table without Getting Data
-        /// </summary>
-        void Refresh();
-
-        /// <summary>
-        /// Gets Data and redraws the Table
-        /// </summary>
-        void Update();
-
-        /// <summary>
-        /// Set the EmptyDataTemplate for the table
-        /// </summary>
-        /// <param name="template"></param>
-        void SetEmptyDataTemplate(EmptyDataTemplate template);
-
-        /// <summary>
-        /// Set the LoadingDataTemplate for the table
-        /// </summary>
-        /// <param name="template"></param>
-        void SetLoadingDataTemplate(LoadingDataTemplate template);
+		/// <summary>
+		/// Is Table in Edit mode
+		/// </summary>
+		bool IsEditMode { get; }
 
 
-        /// <summary>
-        /// Select Type: None, Single or Multiple
-        /// </summary>
-        public SelectionType SelectionType { get; set; }
+		/// <summary>
+		/// Go to First Page
+		/// </summary>
+		void FirstPage();
 
-        /// <summary>
-        /// Search all columns for the specified string, supports spaces as a delimiter
-        /// </summary>
-        string GlobalSearch { get; set; }
+		/// <summary>
+		/// Go to Next Page
+		/// </summary>
+		void NextPage();
 
-        /// <summary>
-        /// Shows Search Bar above the table
-        /// </summary>
-        bool ShowSearchBar { get; set; }
+		/// <summary>
+		/// Go to Previous Page
+		/// </summary>
+		void PreviousPage();
 
-        /// <summary>
-        /// Show or hide table footer. Hide by default.
-        /// </summary>
-        bool ShowFooter { get; set; }
-      
-        /// <summary>
-        /// Set Table Page Size
-        /// </summary>
-        /// <param name="pageSize"></param>
-        void SetPageSize(int pageSize);
+		/// <summary>
+		/// Go to Last Page
+		/// </summary>
+		void LastPage();
 
-    }
+		/// <summary>
+		/// Redraws the Table using EditTemplate instead of Template
+		/// </summary>
+		void ToggleEditMode();
+
+		/// <summary>
+		/// Table Container (Bootstrap 4 Card) Class
+		/// </summary>
+		string TableContainerClass { get; set; }
+
+		/// <summary>
+		/// Table Title to display
+		/// </summary>
+		string TableTitle { get; set; }
+
+		/// <summary>
+		/// Table Element CSS
+		/// </summary>
+		string TableClass { get; set; }
+
+		/// <summary>
+		/// Table Body CSS
+		/// </summary>
+		string TableBodyClass { get; set; }
+
+		/// <summary>
+		/// Table Head CSS
+		/// </summary>
+		string TableHeadClass { get; set; }
+
+		/// <summary>
+		/// Redraws Table without Getting Data
+		/// </summary>
+		void Refresh();
+
+		/// <summary>
+		/// Gets Data and redraws the Table
+		/// </summary>
+		void Update();
+
+		/// <summary>
+		/// Set the EmptyDataTemplate for the table
+		/// </summary>
+		/// <param name="template"></param>
+		void SetEmptyDataTemplate(EmptyDataTemplate template);
+
+		/// <summary>
+		/// Set the LoadingDataTemplate for the table
+		/// </summary>
+		/// <param name="template"></param>
+		void SetLoadingDataTemplate(LoadingDataTemplate template);
+
+
+		/// <summary>
+		/// Select Type: None, Single or Multiple
+		/// </summary>
+		public SelectionType SelectionType { get; set; }
+
+		/// <summary>
+		/// Search all columns for the specified string, supports spaces as a delimiter
+		/// </summary>
+		string GlobalSearch { get; set; }
+
+		/// <summary>
+		/// Shows Search Bar above the table
+		/// </summary>
+		bool ShowSearchBar { get; set; }
+
+		/// <summary>
+		/// Show or hide table footer. Hide by default.
+		/// </summary>
+		bool ShowFooter { get; set; }
+
+		/// <summary>
+		/// Set Table Page Size
+		/// </summary>
+		/// <param name="pageSize"></param>
+		void SetPageSize(int pageSize);
+
+	}
+
 }

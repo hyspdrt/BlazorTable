@@ -1,8 +1,6 @@
 ﻿@page "/"
+<Title Value="Showcase"/>
 
-@using BlazorTable
-
-<h1>BlazorTable</h1>
 
 <a href="https://github.com/IvanJosipovic/BlazorTable"><img alt="GitHub stars" src="https://img.shields.io/github/stars/IvanJosipovic/BlazorTable?style=social"></a>
 &nbsp;
@@ -10,95 +8,93 @@
 <a href="https://www.nuget.org/packages/BlazorTable"><img src="https://img.shields.io/nuget/dt/BlazorTable.svg?style=flat-square"></a>
 <br />
 <br />
-
-<Table TableItem="PersonData" Items="data" PageSize="15" ColumnReorder="true" TableRowClass="@(x => x.RowClass)">
-    <Column TableItem="PersonData" Title="Id" Field="@(x => x.id)" Sortable="true" Filterable="true" Width="10%" DefaultSortColumn="true" />
-    <Column TableItem="PersonData" Title="Full Name" Field="@(x => x.full_name)" Sortable="true" Filterable="true" Width="20%" />
-    <Column TableItem="PersonData" Title="Email" Field="@(x => x.email)" Sortable="true" Filterable="true" Width="20%">
-        <Template>
-            <a href="mailto:@context.email">@context.email</a>
-        </Template>
-    </Column>
-    <Column TableItem="PersonData" Title="Paid" Field="@(x => x.paid)" Sortable="true" Filterable="true" Width="10%">
-        <Template>
-            @context.paid.ToString()
-        </Template>
-    </Column>
-    <Column TableItem="PersonData" Title="Price" Field="@(x => x.price)" Sortable="true" Filterable="true" Width="10%" Format="C" Align="Align.Right" />
-    <Column TableItem="PersonData" Title="Created Date" Field="@(x => x.created_date)" Sortable="true" Filterable="true" Width="10%">
-        <Template>
-            @(context.created_date.HasValue ? context.created_date.Value.ToShortDateString() : string.Empty)
-        </Template>
-    </Column>
-    <Column TableItem="PersonData" Title="Enum" Field="@(x => x.cc_type)" Sortable="true" Filterable="true" Width="10%">
-        <Template>
-            @context.cc_type
-        </Template>
-    </Column>
-    <DetailTemplate TableItem="PersonData" Context="context2">
-        <Table TableItem="PersonData" Items="data" PageSize="15" ColumnReorder="true" TableRowClass="@(x => x.RowClass)" style="background-color: white;">
-            <Column TableItem="PersonData" Title="Id" Field="@(x => x.id)" Sortable="true" Filterable="true" Width="10%" DefaultSortColumn="true" />
-            <Column TableItem="PersonData" Title="Full Name" Field="@(x => x.full_name)" Sortable="true" Filterable="true" Width="20%" />
-            <Column TableItem="PersonData" Title="Email" Field="@(x => x.email)" Sortable="true" Filterable="true" Width="20%">
-                <Template>
-                    <a href="mailto:@context.email">@context.email</a>
-                </Template>
-            </Column>
-            <Column TableItem="PersonData" Title="Paid" Field="@(x => x.paid)" Sortable="true" Filterable="true" Width="10%">
-                <Template>
-                    @context.paid.ToString()
-                </Template>
-            </Column>
-            <Column TableItem="PersonData" Title="Price" Field="@(x => x.price)" Sortable="true" Filterable="true" Width="10%" Format="C" Align="Align.Right" />
-            <Column TableItem="PersonData" Title="Created Date" Field="@(x => x.created_date)" Sortable="true" Filterable="true" Width="10%">
-                <Template>
-                    @(context.created_date.HasValue ? context.created_date.Value.ToShortDateString() : string.Empty)
-                </Template>
-            </Column>
-            <Column TableItem="PersonData" Title="Enum" Field="@(x => x.cc_type)" Sortable="true" Filterable="true" Width="10%">
-                <Template>
-                    @context.cc_type
-                </Template>
-            </Column>
-            <Pager ShowPageNumber="true" ShowTotalCount="true" />
-        </Table>
-    </DetailTemplate>
-    <Pager ShowPageNumber="true" ShowTotalCount="true" ShowPageSizes="true" />
+<Table TableItem="PersonData" Items="data" PageSize="10" ColumnReorder="true" TableTitle="Showcase" TableClass="@tableCss" TableHeadClass="thead-light" TableRowClass="@(x => x.RowClass)">
+	<Column TableItem="PersonData" Title="Id" FieldName="id" Width="10%" DefaultSortColumn="true" />
+	<Column TableItem="PersonData" Title="Full Name" FieldName="full_name" Width="20%" />
+	<Column TableItem="PersonData" Title="Email" FieldName="email" Width="20%">
+		<Template>
+			<a href="mailto:@context.email">@context.email</a>
+		</Template>
+	</Column>
+	<Column TableItem="PersonData" Title="Paid" FieldName="paid" Width="10%">
+		<Template>
+			@context.paid.ToString()
+		</Template>
+	</Column>
+	<Column TableItem="PersonData" Title="Price" FieldName="price" Width="10%" Format="C" Align="Align.Right" />
+	<Column TableItem="PersonData" Title="Created Date" Field="x=>x.created_date" Width="10%">
+		<Template>
+			@(context.created_date.HasValue ? context.created_date.Value.ToShortDateString() : string.Empty)
+		</Template>
+	</Column>
+	<Column TableItem="PersonData" Title="Enum" FieldName="cc_type" Width="10%">
+		<Template>
+			@context.cc_type
+		</Template>
+	</Column>
+	<DetailTemplate TableItem="PersonData" Context="context2">
+		<Table TableItem="PersonData" Items="data" PageSize="10" ColumnReorder="true" TableContainerClass="mb-3 border-0" TableRowClass="@(x => x.RowClass)">
+			<Column TableItem="PersonData" Title="Id" Field="@(x => x.id)" Width="10%" DefaultSortColumn="true" />
+			<Column TableItem="PersonData" Title="Full Name" Field="@(x => x.full_name)" Width="20%" />
+			<Column TableItem="PersonData" Title="Email" Field="@(x => x.email)" Width="20%">
+				<Template>
+					<a href="mailto:@context.email">@context.email</a>
+				</Template>
+			</Column>
+			<Column TableItem="PersonData" Title="Paid" Field="@(x => x.paid)" Width="10%">
+				<Template>
+					@context.paid.ToString()
+				</Template>
+			</Column>
+			<Column TableItem="PersonData" Title="Price" Field="@(x => x.price)" Width="10%" Format="C" />
+			<Column TableItem="PersonData" Title="Created Date" Field="@(x => x.created_date)" Width="10%">
+				<Template>
+					@(context.created_date.HasValue ? context.created_date.Value.ToShortDateString() : string.Empty)
+				</Template>
+			</Column>
+			<Column TableItem="PersonData" Title="Enum" Field="@(x => x.cc_type)" Width="10%">
+				<Template>
+					@context.cc_type
+				</Template>
+			</Column>
+			<Pager ShowPageNumber="true" ShowTotalCount="true" />
+		</Table>
+	</DetailTemplate>
+	<Pager ShowPageNumber="true" ShowTotalCount="true" ShowPageSizes="true" />
 </Table>
 
 @code
 {
-    [Inject]
-    private HttpClient Http { get; set; }
+	[Inject]
+	private HttpClient Http { get; set; }
 
-    private PersonData[] data;
+	private string tableCss = "table table-striped table-borderless table-sm";
 
-    protected override async Task OnInitializedAsync()
-    {
-        data = await Http.GetFromJsonAsync<PersonData[]>("sample-data/MOCK_DATA.json");
-    }
+	private PersonData[] data;
 
-    public class PersonData
-    {
-        public int? id { get; set; }
-        public string full_name { get; set; }
-        public string email { get; set; }
-        public bool? paid { get; set; }
-        public decimal? price { get; set; }
-        public CreditCard? cc_type { get; set; }
-        public DateTime? created_date { get; set; }
+	protected override async Task OnInitializedAsync() {
+		data = await Http.GetFromJsonAsync<PersonData[]>("sample-data/MOCK_DATA.json");
+	}
 
-        /// <summary>
-        /// Returns row CSS if price over 800
-        /// </summary>
-        public string RowClass => price.GetValueOrDefault(0) > 800 ? "table-danger" : null;
-    }
+	public class PersonData {
+		public int? id { get; set; }
+		public string full_name { get; set; }
+		public string email { get; set; }
+		public bool? paid { get; set; }
+		public decimal? price { get; set; }
+		public CreditCard? cc_type { get; set; }
+		public DateTime? created_date { get; set; }
 
-    public enum CreditCard
-    {
-        none = 0,
-        [Description("MasterCard")]
-        MasterCard = 1,
-        Visa = 2
-    }
+		/// <summary>
+		/// Returns row CSS if price over 800
+		/// </summary>
+		public string RowClass => price.GetValueOrDefault(0) > 800 ? "table-danger" : null;
+	}
+
+	public enum CreditCard {
+		none = 0,
+		[Description("MasterCard")]
+		MasterCard = 1,
+		Visa = 2
+	}
 }

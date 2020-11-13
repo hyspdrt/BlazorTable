@@ -1,12 +1,8 @@
 ﻿@page "/Detail"
-
-@using BlazorTable
-
-<h1>DetailTemplate</h1>
+<Title Value="Detail Template"/>
 
 <p>The <code>DetailTemplate</code> can be used to display additional details below an item.</p>
-<br />
-<Table TableItem="PersonData" Items="data" PageSize="15" ColumnReorder="true">
+<Table TableItem="PersonData" Items="data" PageSize="10" ColumnReorder="true" TableTitle="Detail Template">
     <Column TableItem="PersonData" Title="Id" Field="@(x => x.id)" Sortable="true" Filterable="true" Width="10%" DefaultSortColumn="true" />
     <Column TableItem="PersonData" Title="Full Name" Field="@(x => x.full_name)" Sortable="true" Filterable="true" Width="20%" />
     <Column TableItem="PersonData" Title="Email" Field="@(x => x.email)" Sortable="true" Filterable="true" Width="20%">
